@@ -1,0 +1,278 @@
+/***** global styles *****/
+:root {
+    --main-color: #FEC260;
+    --bg: #F7ECDE;
+    --text: #352e28;
+    --surface: #ffffff;
+    --accent-green: #3ca55c;
+    --accent-gold: #b5ac49;
+    --btn-danger: #D1512D;
+    --btn-danger-hover: #BB4120;
+    --btn-success: #9EB23B;
+    --btn-success-hover: #8A9E23;
+    --fav: #FF5B5B;
+}
+
+html[data-theme="dark"] {
+    --main-color: #FEC260;
+    --bg: #1C1C1E;
+    --text: #dddddd;
+    --surface: #2C2C2E;
+    --accent-green: #6BE675;
+    --accent-gold: #E6DB7F;
+    --btn-danger: #E76F51;
+    --btn-danger-hover: #F28482;
+    --btn-success: #A8D672;
+    --btn-success-hover: #90BE6D;
+    --fav: #FF7B7B;
+}
+
+body {
+    background-color: var(--bg);
+    font-family: PTSansCaption;
+}
+
+*::selection {
+    background-color: var(--main-color);
+    color: black;
+}
+
+
+/***** End global styles *****/
+
+/***** toggle icon for modes *****/
+
+.item-for-toggle span .fa-moon {
+    font-size: 1.75rem;
+    cursor: pointer;
+}
+
+.item-for-toggle span .sun {
+    font-size: 1.75rem;
+    color: white;
+    cursor: pointer;
+}
+
+/***** End toggle icon for modes *****/
+
+
+/***** main style *****/
+
+.main .main-title h1 {
+    font-family: Pacifico;
+    font-weight: 500;
+    line-height: 3.75rem;
+    font-size: 3.125rem;
+    color: var(--text);
+    position: relative;
+    width: fit-content;
+}
+
+.main .main-title h1::after {
+    content: "";
+    width: 100%;
+    height: 30%;
+    background-color: var(--main-color);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    transition: height 350ms;
+}
+
+.main .main-title h1:hover::after {
+    height: 70%;
+}
+
+.main .bookmark-body {
+    border-top: .125rem dotted;
+    border-bottom: .125rem dotted;
+}
+
+.main .bookmark-body .caption h2 {
+    font-family: Righteous;
+    font-size: 1.5625rem;
+    font-weight: 500;
+    line-height: 1.875rem;
+    background-image: linear-gradient(to right, var(--accent-green), var(--accent-gold));
+    background-clip: text;
+    color: transparent;
+    width: fit-content;
+}
+
+.main .bookmark-body .caption .form input {
+    font-family: PTSansCaptionRegular;
+}
+
+.main .bookmark-body .caption .form .my-btn .submit {
+    background-color: var(--btn-danger);
+    color: white;
+    font-family: PTSansCaptionRegular;
+}
+
+.main .bookmark-body .caption .form .my-btn .update {
+    font-family: PTSansCaptionRegular;
+}
+
+.btn-click {
+    background-color: transparent;
+}
+
+.main .bookmark-body .caption .form .my-btn .submit:hover {
+    background-color: var(--btn-danger-hover);
+}
+
+.form-control:focus {
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 .25rem #fadeb4;
+}
+
+.form-control.is-invalid {
+    border-color: #dc3545;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+    background-position: right .375rem center;
+    background-repeat: no-repeat;
+    background-size: 1.25rem;
+}
+
+.form-control.is-valid {
+    border-color: #198754;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+    background-position: right .375rem center;
+    background-repeat: no-repeat;
+    background-size: 1.25rem;
+}
+
+
+.form-control.is-invalid:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 .25rem rgba(220, 53, 69, .25);
+}
+
+.form-control.is-valid:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 .25rem #BFD3BB;
+}
+
+.footer-added .visit {
+    background-color: var(--btn-success);
+    font-family: PTSansCaptionRegular;
+}
+
+.footer-added .visit:hover {
+    background-color: var(--btn-success-hover);
+}
+
+.footer-added .delete {
+    font-family: PTSansCaptionRegular;
+}
+
+.main .modal-header .red-circle {
+    background-color: #F15F5D;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+}
+
+.main .modal-header .yellow-circle {
+    background-color: #FEBE2E;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+}
+
+.main .modal-header .green-circle {
+    background-color: #4DB748;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+}
+
+.main .modal-header {
+    border: none;
+}
+
+.main .modal-body .par-modal {
+    font-family: BreeSerif;
+    font-size: 1.3125rem;
+    font-weight: 400;
+}
+
+.main .modal-body .par-content {
+    font-family: PTSansCaptionRegular;
+    font-size: 1.125rem;
+    font-weight: 400;
+}
+
+.main .btn-close {
+    opacity: 0.75;
+}
+
+.main .btn-close:focus {
+    box-shadow: none;
+}
+
+.fav-icon {
+    color: var(--fav);
+    cursor: pointer;
+}
+
+.filter {
+    background-color: var(--fav);
+    color: white;
+    font-family: PTSansCaptionRegular;
+}
+
+.filter:hover {
+    background-color: var(--fav);
+    color: white;
+}
+
+.show-all {
+    color: white;
+    font-family: PTSansCaptionRegular;
+}
+
+.show-all:hover {
+    color: white;
+}
+
+.main .footer .form-control {
+    width: 98%;
+    font-family: PTSansCaptionRegular;
+}
+.first-input-label,.second-input-label{
+color: var(--text);
+}
+
+/***** End main style *****/
+
+
+/*& font face &*/
+
+@font-face {
+    font-family: Pacifico;
+    src: url(../fonts/Pacifico-Regular.ttf);
+}
+
+@font-face {
+    font-family: PTSansCaption;
+    src: url(../fonts/PTSansCaption-Bold.ttf);
+}
+
+@font-face {
+    font-family: PTSansCaptionRegular;
+    src: url(../fonts/PTSansCaption-Regular.ttf);
+}
+
+@font-face {
+    font-family: Righteous;
+    src: url(../fonts/Righteous-Regular.ttf);
+}
+
+@font-face {
+    font-family: BreeSerif;
+    src: url(../fonts/BreeSerif-Regular.ttf);
+}
+
+/*& End font face &*/
