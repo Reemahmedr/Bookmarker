@@ -1,7 +1,6 @@
 let siteName = document.getElementById("siteName");
 let siteUrl = document.getElementById("siteUrl");
 let submitBtn = document.getElementById("submitBtn");
-let regex = /^https?:\/\/(www\.)?[a-zA-Z]+[0-9]*\.[a-zA-Z]{2,}(\/.*)?$/;
 let myModal = new bootstrap.Modal(document.getElementById("myModal"));
 let updateBtn = document.getElementById("updateBtn");
 let oldIndex;
@@ -9,13 +8,21 @@ let dark = document.getElementById("dark");
 let light = document.getElementById("light");
 let htmlTag = document.documentElement;
 
+let siteRegex = {
+  nameRegex: /^.{3,}$/,
+  urlRegex: /^https?:\/\/(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/.*)?$/,
+};
+
 let webSiteArray = [];
 if (localStorage.getItem("webSite") != null) {
   webSiteArray = JSON.parse(localStorage.getItem("webSite"));
   display(webSiteArray);
 }
-submitBtn.onclick = function () {
-  if (validateNameInput() && validateUrlInput()) {
+submitBtn.addEventListener("click", function () {
+  if (
+    validateAllInputs(siteRegex.nameRegex, siteName) &&
+    validateAllInputs(siteRegex.urlRegex, siteUrl)
+  ) {
     let webSiteObj = {
       name: siteName.value.trim(),
       urlValue: siteUrl.value.trim(),
@@ -26,10 +33,15 @@ submitBtn.onclick = function () {
     resetInputs();
     localStorage.setItem("webSite", JSON.stringify(webSiteArray));
     display(webSiteArray);
+    Swal.fire({
+      title: "Good job!",
+      text: "Your website details have been added successfully",
+      icon: "success",
+    });
   } else {
     myModal.show();
   }
-};
+});
 
 function resetInputs() {
   siteName.value = "";
@@ -80,41 +92,74 @@ function display(target) {
 }
 
 function deleteInputs(index) {
-  webSiteArray.splice(index, 1);
-  display(webSiteArray);
-  localStorage.setItem("webSite", JSON.stringify(webSiteArray));
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      webSiteArray.splice(index, 1);
+      display(webSiteArray);
+      localStorage.setItem("webSite", JSON.stringify(webSiteArray));
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success",
+      });
+    }
+  });
 }
 
-function validateNameInput() {
-  let nameValue = siteName.value.trim();
-  if (nameValue === "") {
-    siteName.classList.remove("is-valid", "is-invalid");
+// function validateNameInput() {
+//   let nameValue = siteName.value.trim();
+//   if (nameValue === "") {
+//     siteName.classList.remove("is-valid", "is-invalid");
+//     return false;
+//   }
+//   if (nameValue.length <= 2) {
+//     siteName.classList.remove("is-valid");
+//     siteName.classList.add("is-invalid");
+//     return false;
+//   } else {
+//     siteName.classList.remove("is-invalid");
+//     siteName.classList.add("is-valid");
+//     return true;
+//   }
+// }
+// function validateUrlInput() {
+//   let urlValue = siteUrl.value.trim();
+//   if (urlValue.trim() === "") {
+//     siteUrl.classList.remove("is-valid", "is-invalid");
+//     return false;
+//   }
+//   if (!regex.test(urlValue)) {
+//     siteUrl.classList.remove("is-valid");
+//     siteUrl.classList.add("is-invalid");
+//     return false;
+//   } else {
+//     siteUrl.classList.remove("is-invalid");
+//     siteUrl.classList.add("is-valid");
+//     return true;
+//   }
+// }
+function validateAllInputs(regex, input) {
+  if(input.value==""){
+    input.classList.remove("is-valid");
+    input.classList.remove("is-invalid");
     return false;
   }
-  if (nameValue.length <= 2) {
-    siteName.classList.remove("is-valid");
-    siteName.classList.add("is-invalid");
-    return false;
-  } else {
-    siteName.classList.remove("is-invalid");
-    siteName.classList.add("is-valid");
+  if (regex.test(input.value.trim())) {
+    input.classList.add("is-valid");
+    input.classList.remove("is-invalid");
     return true;
-  }
-}
-function validateUrlInput() {
-  let urlValue = siteUrl.value.trim();
-  if (urlValue.trim() === "") {
-    siteUrl.classList.remove("is-valid", "is-invalid");
-    return false;
-  }
-  if (!regex.test(urlValue)) {
-    siteUrl.classList.remove("is-valid");
-    siteUrl.classList.add("is-invalid");
-    return false;
   } else {
-    siteUrl.classList.remove("is-invalid");
-    siteUrl.classList.add("is-valid");
-    return true;
+    input.classList.add("is-invalid");
+    input.classList.remove("is-valid");
+    return false;
   }
 }
 
@@ -158,8 +203,11 @@ function updateInputs(index) {
   oldIndex = index;
 }
 
-updateBtn.onclick = function () {
-  if (validateNameInput() && validateUrlInput()) {
+updateBtn.addEventListener("click", function () {
+  if (
+    validateAllInputs(siteRegex.nameRegex, siteName) &&
+    validateAllInputs(siteRegex.urlRegex, siteUrl)
+  ) {
     webSiteArray[oldIndex].name = siteName.value.trim();
     webSiteArray[oldIndex].urlValue = siteUrl.value.trim();
     display(webSiteArray);
@@ -167,10 +215,15 @@ updateBtn.onclick = function () {
     resetInputs();
     updateBtn.classList.add("d-none");
     submitBtn.classList.remove("d-none");
+    Swal.fire({
+      title: "Good job!",
+      text: "Your website details have been updated successfully",
+      icon: "success",
+    });
   } else {
     myModal.show();
   }
-};
+});
 
 function searchItems() {
   let value = document.getElementById("search").value.toLowerCase();
@@ -183,21 +236,21 @@ function searchItems() {
   display(result);
 }
 
-dark.onclick = function () {
+dark.addEventListener("click", function () {
   htmlTag.setAttribute("data-theme", "dark");
   dark.classList.add("d-none");
   light.classList.remove("d-none");
   localStorage.setItem("theme", "dark");
-};
+});
 
-light.onclick = function () {
+light.addEventListener("click", function () {
   htmlTag.setAttribute("data-theme", "light");
   dark.classList.remove("d-none");
   light.classList.add("d-none");
   localStorage.setItem("theme", "light");
-};
+});
 
-window.onload = function () {
+onload = function () {
   let savedTheme = localStorage.getItem("theme");
 
   if (savedTheme === "dark") {

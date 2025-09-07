@@ -46,7 +46,7 @@
                   type="text"
                   placeholder="Bookmark Name"
                   name="siteName"
-                  oninput="validateNameInput();"
+                  oninput="validateAllInputs(siteRegex.nameRegex,this);"
                 />
               </div>
               <div class="second-input">
@@ -59,7 +59,7 @@
                   type="text"
                   placeholder="Website URL"
                   name="siteUrl"
-                  oninput="validateUrlInput();"
+                  oninput="validateAllInputs(siteRegex.urlRegex,this);"
                 />
               </div>
               <div class="my-btn text-center p-4">
@@ -84,12 +84,13 @@
         <div class="footer table-responsive">
           <input
             id="search"
-            class="d-block form-control mx-auto mt-3 p-2"
+            class="form-control mx-auto mt-3 p-2 rounded-2 mx-auto"
             type="search"
             placeholder="Search By Name..."
             name="siteName"
             oninput="searchItems();"
           />
+
           <table class="table align-middle mt-3">
             <thead class="table-light">
               <tr>
@@ -156,6 +157,7 @@
     <!--~ ========== End main section ========== -->
 
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/index.js"></script>
   </body>
 </html>
